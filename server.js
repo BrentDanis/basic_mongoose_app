@@ -8,7 +8,9 @@ mongoose.connect('mongodb://localhost/basic_mongoose');
 var UserSchema = new mongoose.Schema({
     name: String,
     age: Number
-   })
+   },
+   {timestamps: true}
+)
    mongoose.model('User', UserSchema); // We are setting this Schema in our Models as 'User'
 
    var User = mongoose.model('User') // We are retrieving this Schema from our Models, named 'User'
@@ -63,6 +65,13 @@ app.get('/', function(req, res) {
       // Make sure you handle the case when there is an error, as well as the case when there is no error
     })
   })
+  app.post('/destroy', function(req, res){
+      User.remove({}, function(err){
+
+      })
+      res.redirect('/');
+  });
+  
 // Setting our Server to Listen on Port: 8000
 app.listen(8000, function() {
     console.log("listening on port 8000");
